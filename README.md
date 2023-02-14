@@ -1,4 +1,10 @@
-# React bolivianite grid
+# React bolivianite grid - fork
+
+**This is Deep Channel fork of the original package.**
+
+* `master` branch follows original repository
+* Feature branches are created for all changes and PRs are made to original repository
+* `dc-master` branch is used for Deep Channel, and all changes are merged from feature branches
 
 React component for rendering large tabular data.
 
