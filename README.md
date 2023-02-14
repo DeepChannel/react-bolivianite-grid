@@ -22,5 +22,10 @@ React component for rendering large tabular data.
 ## Requirements
 React.js at least v16.3
 
+## Development
+
+* Install dependencies with `npm install`
+* Build with `npm run build`
+
 ## License
 The MIT License
