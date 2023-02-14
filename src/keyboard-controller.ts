@@ -39,7 +39,7 @@ export class KeyboardController extends Controller implements IKeyboardControlle
         document.body.addEventListener('paste', this._paste);
     }
 
-    private _isInput(e: KeyboardEvent<HTMLDivElement>) {
+    protected _isInput(e: KeyboardEvent<HTMLDivElement>) {
         const { keyCode } = e;
         const { ctrlKey, altKey, macCmdKey } = this._getModifiers(e);
 
@@ -55,7 +55,7 @@ export class KeyboardController extends Controller implements IKeyboardControlle
         );
     }
 
-    private _moveSelection(shiftKey: boolean, cmdKey: boolean, direction: 'left' | 'up' | 'right' | 'down', distance: number) {
+    protected _moveSelection(shiftKey: boolean, cmdKey: boolean, direction: 'left' | 'up' | 'right' | 'down', distance: number) {
         const { active, rows, columns, selection } = this._state;
 
         let nextScroll: IGridAddress = null;
@@ -365,7 +365,7 @@ export class KeyboardController extends Controller implements IKeyboardControlle
         }
     }
 
-    private _onTab(e: KeyboardEvent<HTMLDivElement>, callback?: () => void) {
+    protected _onTab(e: KeyboardEvent<HTMLDivElement>, callback?: () => void) {
         e.preventDefault();
 
         const { shiftKey, cmdKey } = this._getModifiers(e);
@@ -431,7 +431,7 @@ export class KeyboardController extends Controller implements IKeyboardControlle
 
     }
 
-    private _onEnter(e: KeyboardEvent<HTMLDivElement>, callback?: () => void) {
+    protected _onEnter(e: KeyboardEvent<HTMLDivElement>, callback?: () => void) {
         e.preventDefault();
 
         const { shiftKey, cmdKey } = this._getModifiers(e);
@@ -507,7 +507,7 @@ export class KeyboardController extends Controller implements IKeyboardControlle
 
     }
 
-    private _onSpace(e: KeyboardEvent<HTMLDivElement>) {
+    protected _onSpace(e: KeyboardEvent<HTMLDivElement>) {
         e.preventDefault();
 
         if (this._state.readOnly) {
@@ -518,7 +518,7 @@ export class KeyboardController extends Controller implements IKeyboardControlle
         this._props.onSpace(cells);
     }
 
-    private _onPageUpDown(e: KeyboardEvent<HTMLDivElement>) {
+    protected _onPageUpDown(e: KeyboardEvent<HTMLDivElement>) {
         e.preventDefault();
 
         const { shiftKey, cmdKey, altKey } = this._getModifiers(e);
@@ -547,7 +547,7 @@ export class KeyboardController extends Controller implements IKeyboardControlle
         this._moveSelection(shiftKey, cmdKey, direction, altKey ? pageColumns : pageRows);
     }
 
-    private _onHomeEnd(e: KeyboardEvent<HTMLDivElement>) {
+    protected _onHomeEnd(e: KeyboardEvent<HTMLDivElement>) {
         const { shiftKey, cmdKey, altKey } = this._getModifiers(e);
 
         if (altKey) {
@@ -591,7 +591,7 @@ export class KeyboardController extends Controller implements IKeyboardControlle
         this._props.onScroll(nextScroll);
     }
 
-    private _onArrows(e: KeyboardEvent<HTMLDivElement>) {
+    protected _onArrows(e: KeyboardEvent<HTMLDivElement>) {
         e.preventDefault();
 
         const { shiftKey, cmdKey } = this._getModifiers(e);
@@ -607,12 +607,12 @@ export class KeyboardController extends Controller implements IKeyboardControlle
         this._moveSelection(shiftKey, cmdKey, direction, 1);
     }
 
-    private _onCopy(withHeaders: boolean) {
+    protected _onCopy(withHeaders: boolean) {
         const cells = this._getSelectedCells(this._state.selection);
         this._props.onCopy(cells, withHeaders);
     }
 
-    private _onNullify() {
+    protected _onNullify() {
         if (this._state.readOnly) {
             return;
         }
@@ -621,7 +621,7 @@ export class KeyboardController extends Controller implements IKeyboardControlle
         this._props.onNullify(cells);
     }
 
-    private _onRemove() {
+    protected _onRemove() {
         if (this._state.readOnly) {
             return;
         }
@@ -640,7 +640,7 @@ export class KeyboardController extends Controller implements IKeyboardControlle
         });
     }
 
-    private _onSelectAll(e: KeyboardEvent<HTMLDivElement>) {
+    protected _onSelectAll(e: KeyboardEvent<HTMLDivElement>) {
         e.preventDefault();
 
         const { cmdKey } = this._getModifiers(e);
@@ -661,7 +661,7 @@ export class KeyboardController extends Controller implements IKeyboardControlle
         });
     }
 
-    private _onData(e: KeyboardEvent<HTMLDivElement>) {
+    protected _onData(e: KeyboardEvent<HTMLDivElement>) {
         const { cmdKey, altKey, shiftKey } = this._getModifiers(e);
 
         switch (e.keyCode) {
