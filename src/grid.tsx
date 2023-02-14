@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropType from 'prop-types';
 import FallbackScrollView, { IScrollViewUpdateEvent } from './scroll-view';
-import KeyboardController, { IKeyboardControllerRemoveEvent, IKeyboardControllerPasteEvent } from './keyboard-controller';
+import KeyboardController, { IKeyboardControllerRemoveEvent, IKeyboardControllerPasteEvent, IKeyboardController } from './keyboard-controller';
 import MouseController from './mouse-controller';
 import RenderThrottler from './render-throttler';
 import debounce from './debounce';
@@ -78,7 +78,7 @@ export class Grid extends React.PureComponent<IGridProps, any> {
     private _lastView: IGridView = null;
     private _lastOverscan: IGridOverscan = null;
     private _focused = false;
-    private _kbCtr: KeyboardController = null;
+    private _kbCtr: IKeyboardController = null;
     private _msCtr: MouseController = null;
     private _currentEdit: {
         row: number;

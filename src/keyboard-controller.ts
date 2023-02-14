@@ -23,7 +23,12 @@ export interface IKeyboardControllerProps extends IControllerProps {
     onReadOnly: (cell: IGridAddress, source: TGridReadOnlyEventSource) => boolean;
 }
 
-export class KeyboardController extends Controller {
+export interface IKeyboardController {
+    keydown: (e: KeyboardEvent<HTMLDivElement>) => void;
+    dispose: () => void;
+}
+
+export class KeyboardController extends Controller implements IKeyboardController {
     constructor(protected _props: IKeyboardControllerProps) {
         super(_props);
 
