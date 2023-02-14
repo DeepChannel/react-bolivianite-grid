@@ -1,5 +1,5 @@
 import { HeaderRepository } from './header-repository';
-import { IKeyboardControllerRemoveEvent, IKeyboardControllerPasteEvent } from './keyboard-controller';
+import { IKeyboardControllerRemoveEvent, IKeyboardControllerPasteEvent, IKeyboardControllerConstructor } from './keyboard-controller';
 import { IScrollViewInterface } from './scroll-view';
 
 export enum HeaderType {
@@ -313,4 +313,7 @@ export interface IGridProps {
 
     /** Hidded property, sometime I will document it. (ಠ_ಠ) Not supposed to be used for now. */
     scrollViewClass?: IScrollViewInterface;
+
+    /** Optional override for {@link KeyboardController} class */
+    keyboardControllerConstructor: IKeyboardControllerConstructor
 }

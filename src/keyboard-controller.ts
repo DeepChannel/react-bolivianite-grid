@@ -28,6 +28,10 @@ export interface IKeyboardController {
     dispose: () => void;
 }
 
+export interface IKeyboardControllerConstructor {
+    new (props: IKeyboardControllerProps): IKeyboardController;
+}
+
 export class KeyboardController extends Controller implements IKeyboardController {
     constructor(protected _props: IKeyboardControllerProps) {
         super(_props);
