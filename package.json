@@ -2,7 +2,9 @@
   "name": "react-bolivianite-grid",
   "version": "1.6.0",
   "description": "React grid component for virtualized rendering large tabular data.",
-  "main": "src/index.ts",
+  "main": "index.js",
+  "module": "__es_module/index.js",
+  "typings": "index.d.ts",
   "homepage": "https://papasnippy.github.io/react-bolivianite-grid/",
   "bugs": {
     "url": "https://github.com/papasnippy/react-bolivianite-grid/issues"
