@@ -315,5 +315,5 @@ export interface IGridProps {
     scrollViewClass?: IScrollViewInterface;
 
     /** Optional override for {@link KeyboardController} class */
-    keyboardControllerConstructor: IKeyboardControllerConstructor
+    keyboardControllerConstructor?: IKeyboardControllerConstructor
 }
