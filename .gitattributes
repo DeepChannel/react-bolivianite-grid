@@ -1,3 +1,1 @@
-*.tsx text eol=crlf
-*.ts text eol=crlf
 *.scss text eol=crlf
