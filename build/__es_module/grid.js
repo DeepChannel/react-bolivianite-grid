@@ -381,7 +381,8 @@ export class Grid extends React.PureComponent {
             });
         };
         this._onAfterUpdate = debounce(500, this._onAfterUpdate.bind(this));
-        this._kbCtr = new (p.keyboardControllerConstructor ?  ? KeyboardController :  : )({
+        this._kbCtr = new (p.keyboardControllerConstructor !== undefined
+            ? p.keyboardControllerConstructor : KeyboardController)({
             getState: this._ctrlGetState,
             onCloseEditor: this.closeEditor,
             onOpenEditor: this.openEditor,

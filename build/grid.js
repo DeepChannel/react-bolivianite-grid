@@ -405,7 +405,8 @@ var Grid = /** @class */ (function (_super) {
             });
         };
         _this._onAfterUpdate = debounce_1.default(500, _this._onAfterUpdate.bind(_this));
-        _this._kbCtr = new (p.keyboardControllerConstructor ?  ? keyboard_controller_1.default :  : )({
+        _this._kbCtr = new (p.keyboardControllerConstructor !== undefined
+            ? p.keyboardControllerConstructor : keyboard_controller_1.default)({
             getState: _this._ctrlGetState,
             onCloseEditor: _this.closeEditor,
             onOpenEditor: _this.openEditor,
