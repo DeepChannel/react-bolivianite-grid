@@ -120,13 +120,9 @@ export class Grid extends React.PureComponent<IGridProps, any> {
     };
     //#endregion
 
-    constructor(p: IGridProps, c: any) {
-        super(p, c);
-
-        this._onAfterUpdate = debounce(500, this._onAfterUpdate.bind(this));
-
-        this._kbCtr = new (p.keyboardControllerConstructor !== undefined
-                ? p.keyboardControllerConstructor : KeyboardController)({
+    private _buildKeyboardController() {
+        this._kbCtr = new (this.props.keyboardControllerConstructor !== undefined
+                ? this.props.keyboardControllerConstructor : KeyboardController)({
             getState: this._ctrlGetState,
             onCloseEditor: this.closeEditor,
             onOpenEditor: this.openEditor,
@@ -139,6 +135,14 @@ export class Grid extends React.PureComponent<IGridProps, any> {
             onSpace: this._ctrlSpace,
             onReadOnly: this._ctrlIsCellReadOnly
         });
+    }
+
+    constructor(p: IGridProps, c: any) {
+        super(p, c);
+
+        this._onAfterUpdate = debounce(500, this._onAfterUpdate.bind(this));
+
+        this._buildKeyboardController();
 
         this._msCtr = new MouseController({
             getState: this._ctrlGetState,
@@ -1589,6 +1593,10 @@ export class Grid extends React.PureComponent<IGridProps, any> {
 
         if (this.state.edit && (isSourceChanged || isHeadersChanged)) {
             this.closeEditor(false);
+        }
+
+        if (pp.keyboardControllerConstructor !== this.props.keyboardControllerConstructor) {
+            this._buildKeyboardController();
         }
 
         this._onAfterUpdate();
