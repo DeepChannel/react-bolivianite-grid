@@ -5,6 +5,7 @@
 * `master` branch follows original repository
 * Feature branches are created for all changes and PRs are made to original repository
 * `dc-master` branch is used for Deep Channel, and all changes are merged from feature branches
+* Run `npm run build` before commit - build artefacts are saved in `build` folder
 
 React component for rendering large tabular data.
 

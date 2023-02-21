@@ -31,7 +31,6 @@ var context_1 = require("./context");
 var DUMMY_CELL_ADDRESS = { row: -1, column: -1 };
 var Grid = /** @class */ (function (_super) {
     __extends(Grid, _super);
-    //#endregion
     function Grid(p, c) {
         var _this = _super.call(this, p, c) || this;
         //#region properties
@@ -405,20 +404,7 @@ var Grid = /** @class */ (function (_super) {
             });
         };
         _this._onAfterUpdate = debounce_1.default(500, _this._onAfterUpdate.bind(_this));
-        _this._kbCtr = new (p.keyboardControllerConstructor !== undefined
-            ? p.keyboardControllerConstructor : keyboard_controller_1.default)({
-            getState: _this._ctrlGetState,
-            onCloseEditor: _this.closeEditor,
-            onOpenEditor: _this.openEditor,
-            onScroll: _this.scrollTo,
-            onUpdateSelection: _this.updateSelection,
-            onCopy: _this._ctrlCopy,
-            onPaste: _this._ctrlPaste,
-            onNullify: _this._ctrlNullify,
-            onRemove: _this._ctrlRemove,
-            onSpace: _this._ctrlSpace,
-            onReadOnly: _this._ctrlIsCellReadOnly
-        });
+        _this._buildKeyboardController();
         _this._msCtr = new mouse_controller_1.default({
             getState: _this._ctrlGetState,
             onCloseEditor: _this.closeEditor,
@@ -429,6 +415,23 @@ var Grid = /** @class */ (function (_super) {
         });
         return _this;
     }
+    //#endregion
+    Grid.prototype._buildKeyboardController = function () {
+        this._kbCtr = new (this.props.keyboardControllerConstructor !== undefined
+            ? this.props.keyboardControllerConstructor : keyboard_controller_1.default)({
+            getState: this._ctrlGetState,
+            onCloseEditor: this.closeEditor,
+            onOpenEditor: this.openEditor,
+            onScroll: this.scrollTo,
+            onUpdateSelection: this.updateSelection,
+            onCopy: this._ctrlCopy,
+            onPaste: this._ctrlPaste,
+            onNullify: this._ctrlNullify,
+            onRemove: this._ctrlRemove,
+            onSpace: this._ctrlSpace,
+            onReadOnly: this._ctrlIsCellReadOnly
+        });
+    };
     Object.defineProperty(Grid.prototype, "_theme", {
         //#region getters
         get: function () {
@@ -1256,6 +1259,9 @@ var Grid = /** @class */ (function (_super) {
         var isHeadersChanged = pp.repository !== this.props.repository;
         if (this.state.edit && (isSourceChanged || isHeadersChanged)) {
             this.closeEditor(false);
+        }
+        if (pp.keyboardControllerConstructor !== this.props.keyboardControllerConstructor) {
+            this._buildKeyboardController();
         }
         this._onAfterUpdate();
     };

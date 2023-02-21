@@ -10,7 +10,6 @@ import { HeaderType } from './types';
 import Context from './context';
 const DUMMY_CELL_ADDRESS = { row: -1, column: -1 };
 export class Grid extends React.PureComponent {
-    //#endregion
     constructor(p, c) {
         super(p, c);
         //#region properties
@@ -381,8 +380,20 @@ export class Grid extends React.PureComponent {
             });
         };
         this._onAfterUpdate = debounce(500, this._onAfterUpdate.bind(this));
-        this._kbCtr = new (p.keyboardControllerConstructor !== undefined
-            ? p.keyboardControllerConstructor : KeyboardController)({
+        this._buildKeyboardController();
+        this._msCtr = new MouseController({
+            getState: this._ctrlGetState,
+            onCloseEditor: this.closeEditor,
+            onOpenEditor: this.openEditor,
+            onScroll: this.scrollTo,
+            onUpdateSelection: this.updateSelection,
+            onRightClick: this._ctrlRightClick
+        });
+    }
+    //#endregion
+    _buildKeyboardController() {
+        this._kbCtr = new (this.props.keyboardControllerConstructor !== undefined
+            ? this.props.keyboardControllerConstructor : KeyboardController)({
             getState: this._ctrlGetState,
             onCloseEditor: this.closeEditor,
             onOpenEditor: this.openEditor,
@@ -394,14 +405,6 @@ export class Grid extends React.PureComponent {
             onRemove: this._ctrlRemove,
             onSpace: this._ctrlSpace,
             onReadOnly: this._ctrlIsCellReadOnly
-        });
-        this._msCtr = new MouseController({
-            getState: this._ctrlGetState,
-            onCloseEditor: this.closeEditor,
-            onOpenEditor: this.openEditor,
-            onScroll: this.scrollTo,
-            onUpdateSelection: this.updateSelection,
-            onRightClick: this._ctrlRightClick
         });
     }
     //#region getters
@@ -1175,6 +1178,9 @@ export class Grid extends React.PureComponent {
         const isHeadersChanged = pp.repository !== this.props.repository;
         if (this.state.edit && (isSourceChanged || isHeadersChanged)) {
             this.closeEditor(false);
+        }
+        if (pp.keyboardControllerConstructor !== this.props.keyboardControllerConstructor) {
+            this._buildKeyboardController();
         }
         this._onAfterUpdate();
     }

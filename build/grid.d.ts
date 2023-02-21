@@ -81,6 +81,7 @@ export declare class Grid extends React.PureComponent<IGridProps, any> {
         };
     };
     private _chromeFix;
+    private _buildKeyboardController;
     constructor(p: IGridProps, c: any);
     private readonly _theme;
     private readonly _columnCount;
